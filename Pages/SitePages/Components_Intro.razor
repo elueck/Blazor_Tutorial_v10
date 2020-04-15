@@ -58,12 +58,17 @@
                                         helpBoxText="Dependancy includes variables/data in the parent component that the child component needs in order to function"
                                         infoType="infoGen"
                                         boxColor="@infoGenColor" />
-                upon variables or data within a parent component to be instantiated.
+                upon variables, or data, within a parent component to be instantiated.
             </p>
             <p>
                 Below is a button allowing you to toggle between the parent and child component code
                 of the following example. Building off of the looping that was shown in the previous section,
-                we have a add button and subtract button that are now adding/removing components.
+                I have altered the
+                <HighlightedInfoHandler highlightedText="for-loop"
+                                        helpBoxText="@forLoopRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                so that it adds or removes components based based upon the current count.
             </p>
             <p>
                 Each
@@ -87,6 +92,19 @@
                                         infoType="infoVar"
                                         boxColor="@infoVarColor" />
                 must be called.
+            </p>
+            <p>
+                Lastly, within the child component is an
+                <HighlightedInfoHandler highlightedText="EventCallback"
+                                        helpBoxText="@childEventCallbackRef"
+                                        infoType="infoSyn"
+                                        boxColor="@infoSynColor" />
+                Parameter. The sentance at the bottom of the demo demonstrates the child-to-parent
+                communication by changing its associated number based upon which child component is
+                selected. EventCallbacks will be discussed in more detail momentarily, but for now, just note that it
+                handles the returning of information from the child component to the parent. There are many
+                different ways to accomplish child-to-parent communication. Some of the most popular ways are
+                listed in the alternate solutions section. This tutorial will focus on the most simple version.
             </p>
         </div>
         <div class="col-1"></div>
@@ -116,8 +134,146 @@
         <div class="col-11 border border-secondary rounded padded how-section">
             <h5><strong>HOW</strong></h5>
             <!--Info here:-->
-
-
+            <p>
+                First take a glance at the Demo again. It turns out that the entire demo section
+                (excluding the toggle button at the top) is actually a component being called with
+                <HighlightedInfoHandler highlightedText="one line"
+                                        helpBoxText="@parentCompRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                of code. All you need to know is the .razor file name and you can call any parent component
+                razor file in this way.
+            </p>
+            <p>Essentially, components are custom html elements that you can program to dynamically behave however you want.</p>
+            <p>This page is a nested component within a wrapper that handles the navbar that you see on the left.</p>
+            <p>
+                As previously mentioned, each
+                <HighlightedInfoHandler highlightedText="button"
+                                        helpBoxText="@incDecButtonsRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                respectively increments/decrements the
+                <HighlightedInfoHandler highlightedText="current count"
+                                        helpBoxText="@currentCountRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                which will tell the
+                <HighlightedInfoHandler highlightedText="for-loop"
+                                        helpBoxText="@forLoopRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                how many times the
+                <HighlightedInfoHandler highlightedText="child component"
+                                        helpBoxText="@childCompRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                must be called.
+            </p>
+            <p>
+                Note that the
+                <HighlightedInfoHandler highlightedText="child component"
+                                        helpBoxText="@childCompRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                contains
+                <HighlightedInfoHandler highlightedText="parameters"
+                                        helpBoxText="@paramRef"
+                                        infoType="infoSyn"
+                                        boxColor="@infoSynColor" />
+                when it is instantiated. These are the variables being sent by the parent component
+                that the child component requires to function.
+            </p>
+            <p>
+                Now click the toggle button and look at the child component code. Note that it does not
+                contain an @atPage directive. This is because it cannot be instantiated without specific
+                requirements and therefore should not be called without a corresponding parent component. Simply by
+                not programming in an @atPage reference to the file, we remove the ability to instantiate this
+                component through a URL/href which prevents instantiation-without-parameter errors from occuring.
+            </p>
+            <p>
+                Looking back at the child component code, we notice that it is very similar to the
+                <HighlightedInfoHandler highlightedText="Counter component"
+                                        helpBoxText="@counterCode"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                that we looked at in the Blazor Variables section earlier. It just has a few
+                <HighlightedInfoHandler highlightedText="new additions."
+                                        helpBoxText="@newAdditionsRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                The rest of the code is almost the same as before with some rewording.
+            </p>
+            <p>
+                First lets look at the
+                <HighlightedInfoHandler highlightedText="Parameter"
+                                        helpBoxText="@newParamRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                variables of the child component.
+                Each one has a [Parameter] tag that declares that the following variable will be sent by the
+                parent component upon creation.
+            </p>
+            <p>
+                Now look at the Return click-count
+                <HighlightedInfoHandler highlightedText="button."
+                                        helpBoxText="@lambdaButton"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                Note that it contains a
+                <HighlightedInfoHandler highlightedText="lambda expression."
+                                        helpBoxText="@lambdaExpression"
+                                        infoType="infoSyn"
+                                        boxColor="@infoSynColor" />
+            </p>
+            <p>
+                It turns out that the OnClick event of type @synString can be instantiated like a method
+                with said lambda expression. The variable currentCount is then cast to a string from an integer
+                so that the OnClick Event can take it as an argument and send it to the parent component.
+                <HighlightedInfoHandler highlightedText="Note"
+                                        helpBoxText="@note1"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+            </p>
+            <p>
+                Also note the
+                <HighlightedInfoHandler highlightedText="@onInitialWord"
+                                        helpBoxText="@onInit"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+                method. Each component can have one method like this that is designed to run as soon as the
+                component is instantiated. Methods like this can have a multitude of uses but are typically
+                seen when a component must populate a local array/object with data from another source. This
+                task is also done Asynchronously as the page renders to save load time.
+            </p>
+            <p>
+                In this case, I am simply setting a local private integer variable equal to the count Parameter
+                that was send by the parent. This step is un-necessary but good programming practice because
+                generally it is a good idea to manipulate a copy of used parameters rather than the parameters
+                themselves.
+            </p>
+            <p>Whiew. Now that was a lot of info. Take a moment, it's all about to come together!</p>
+            <p>
+                Moving back to the parent component, look at the child component
+                <HighlightedInfoHandler highlightedText="call."
+                                        helpBoxText="@childCompRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                Notice OnClick="ClickHandler". OnClick is the name of the EventCallback event that was declared in
+                the child component.
+                <HighlightedInfoHandler highlightedText="ClickHandler"
+                                        helpBoxText="@clickHandlerRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                is actually a local method in the parent component that, when called in this way, contains
+                the int-cast-to-string currentCount variable we sent from the child component. I then set a
+                local parent component variable "returnedValue" equal to the "childReturnedValue" (which is
+                the same as currentCount from the child component). As a side note, I had to
+                <HighlightedInfoHandler highlightedText="parse"
+                                        helpBoxText="returnedValue = Int32.Parse(childReturnedValue);"
+                                        infoType="infoSyn"
+                                        boxColor="@infoSynColor" />parse
+                the value to an integer because it was currently a string.
+            </p>
         </div>
         <div class="col-1"></div>
 
@@ -130,8 +286,18 @@
         <div class="col-11 border border-warning rounded padded alt-section">
             <h5><strong>Alternate Solutions</strong></h5>
             <!--Info here:-->
-
-
+            <p><a href="https://blazor-university.com/components/component-events/" target="_blank">This version of an EventCallback triggers based upon a specific event that is being monitored by the child component.</a></p>
+            <p><a href="https://chrissainty.com/3-ways-to-communicate-between-components-in-blazor/" target="_blank">This article provides a similar EventCallback example to the one discussed but also discusses a version that uses Object dependancy injection.</a></p>
+            <p>
+                Dependancy injection is an advanced implementation technique for component use due to its
+                difficulty to set up, but provides the programmer with much more control over their Event
+                handleing. This tutorial uses object dependancy injection when handleing the
+                <HighlightedInfoHandler highlightedText="highlighted words"
+                                        helpBoxText="I am the help text-box!"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+                and mouse events that populate the help text-box.
+            </p>
         </div>
         <div class="col-1"></div>
         <!--End of content sections-->
@@ -192,7 +358,7 @@
     "        @for (int x = 1; x <= currentCount; x++)\n" +
     "        {\n" +
     "            <div style=\"font-size: 80%\">\n" +
-    "                <Simple_Child_Component count = \"@currentCount\"\n" +
+    "                <Simple_Child_Component count=\"@currentCount\"\n" +
     "                                        OnClick=\"ClickHandler\" />\n" +
     "            </div>\n" +
     "        }\n" +
@@ -204,10 +370,10 @@
     "    private int currentCount = 0;\n" +
     "    private int returnedValue = -1;\n" +
     "\n" +
-    "private void ClickHandler(string childReturnedValue)\n" +
-    "{\n" +
-    "    returnedValue = Int32.Parse(childReturnedValue);\n" +
-    "}\n" +
+    "    private void ClickHandler(string childReturnedValue)\n" +
+    "    {\n" +
+    "        returnedValue = Int32.Parse(childReturnedValue);\n" +
+    "    }\n" +
     "    private void IncrementCount()\n" +
     "    {\n" +
     "        currentCount++;\n" +
@@ -222,6 +388,7 @@
     "<p>Current count: @currentCount</p>\n" +
     "\n" +
     "<button class=\"btn btn-primary\" @onclick=\"@(() => OnClick.InvokeAsync(currentCount.ToString()))\">Click me</button>\n" +
+    "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">count +1</button>\n" +
     "\n" +
     "@code {\n" +
     "    [Parameter]\n" +
@@ -255,4 +422,62 @@
     private string incDecButtonsRef = "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">add 1</button>\n" +
     "<button class=\"btn btn-secondary\" @onclick=\"DecrementCount\">remove 1</button>";
     private string currentCountRef = "<p>Current count: @currentCount</p>\n";
+    private string childEventCallbackRef = "[Parameter]\n" +
+    "public EventCallback<string> OnClick { get; set; }";
+    private string parentCompRef = "<Simple_Component />";
+    private string paramRef = "count=\"@currentCount\"\n" +
+        "OnClick=\"ClickHandler\"";
+    private string newParamRef = "[Parameter]\n" +
+        "public int count { get; set; }\n" +
+        "[Parameter]\n" +
+        "public EventCallback<string> OnClick { get;set; }";
+    private string atPage = "@page";
+    public string counterCode = "@page \"/Counter\"\n"
+    + "\n"
+    + "<h1>Counter</h1>\n"
+    + "\n"
+    + "<p>Current count: @currentCount</p>"
+    + "\n"
+    + "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">Click me</button>\n"
+    + "\n"
+    + "@code {\n"
+    + "    private int currentCount = 0;\n"
+    + "\n"
+    + "    private void IncrementCount()\n"
+    + "    {\n"
+    + "        currentCount++;\n"
+    + "    }\n"
+    + "}";
+    private string newAdditionsRef = "<button class=\"btn btn-primary\" @onclick=\"@(() => OnClick.InvokeAsync(currentCount.ToString()))\">Click me</button>\n" +
+            "...\n" +
+            "@code {\n" +
+            "    [Parameter]\n" +
+            "    public int count { get; set; }\n" +
+            "    [Parameter]\n" +
+            "    public EventCallback<string> OnClick { get; set; }\n" +
+            "...\n" +
+            "    protected override void OnInitialized()\n" +
+            "    {\n" +
+            "        currentCount = count;\n" +
+            "    }\n" +
+            "}";
+    private string lambdaButton = "<button class=\"btn btn-primary\" @onclick=\"@(() => OnClick.InvokeAsync(currentCount.ToString()))\">Click me</button>";
+    private string lambdaExpression = "@(() => OnClick.InvokeAsync(currentCount.ToString()))";
+    private string synString = "EventCallback<string>";
+    private string note1 = "The OnClick Event does not have to be of type string but " +
+                           "generally, strings are the best type to use for EventCallback Events.\n\nIf, for some " +
+                           "reason, you were to instantiate this child component through a url call " +
+                           "by sending it the required parameters as part of the url, they would " +
+                           "be required to be strings because urls cannot be read as an integer " +
+                           "type.";
+    private string onInitialWord = "OnInitialized()";
+    private string onInit = "protected override void OnInitialized()\n" +
+    "{\n" +
+    "    currentCount = count;\n" +
+    "}";
+    private string clickHandlerRef = "private void ClickHandler(string childReturnedValue)\n" +
+    "{\n" +
+    "    returnedValue = Int32.Parse(childReturnedValue);\n" +
+    "}";
+    private string it = "\"It\" being the ClickHandler method";
 }

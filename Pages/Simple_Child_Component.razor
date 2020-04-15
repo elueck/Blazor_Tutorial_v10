@@ -2,7 +2,8 @@
 
 <p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="@(() => OnClick.InvokeAsync(currentCount.ToString()))">Click me</button>
+<button class="btn btn-primary" @onclick="@(() => OnClick.InvokeAsync(currentCount.ToString()))">Return Click-count</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     [Parameter]
