@@ -1,0 +1,24 @@
+﻿<h4>I am a child component</h4>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="@(() => OnClick.InvokeAsync(currentCount.ToString()))">Click me</button>
+
+@code {
+    [Parameter]
+    public int count { get; set; }
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    protected override void OnInitialized()
+    {
+        currentCount = count;
+    }
+}

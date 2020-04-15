@@ -1,0 +1,188 @@
+﻿@page "/Blazor_Variables"
+@using BlazorTutorial_1.Components
+@using BlazorTutorial_1.Classes
+@inject HelpBoxInfo HelpBoxInfo
+@implements IDisposable
+<div class="set-padding">
+    <!--Title-->
+    <h1 class="page-title"><strong>Variables and Razor-Page Layout</strong></h1>
+    <!--Header-->
+    <h4 style="padding-bottom: 15px;">Page syntax and basic html variable injection are a good place to start</h4>
+
+
+
+    <!--Text box positioning-->
+    <div class="position-sticky form-position">
+
+        <textarea readonly class="form-control codeAssistant primary-textarea"
+                  id="exampleFormControlTextarea3">@counterCode</textarea>
+        <br />
+        <InfoTextHandler setRefText="@HelpBoxInfo.helpBoxText"
+                         boxColor="@HelpBoxInfo.boxColor" />
+    </div>
+
+
+
+    <!--Left half of screen-->
+    <div class="row">
+        <!--The What section:-->
+        <div class="col-11 border border-primary rounded padded what-section">
+            <h5><strong>WHAT</strong></h5>
+            <!--Info here:-->
+            <p>Below is simple counter. You can see header text, a button, and a number that changes based on how many times the button has been clicked.</p>
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Demo section:-->
+        <div class="col-11 border border-success rounded padded demo-section">
+            <h5><strong>DEMO</strong></h5>
+            <!--Info here:-->
+            <Counter />
+
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The How section:-->
+        <div class="col-11 border border-secondary rounded padded how-section">
+            <h5><strong>HOW</strong></h5>
+            <!--Info here:-->
+            <p>
+                First, take an abstract look at the code. Note that it is broken into
+                <HighlightedInfoHandler highlightedText="html"
+                                        helpBoxText="@htmlpage"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" /> and
+                <HighlightedInfoHandler highlightedText="code"
+                                        helpBoxText="@csharpcode"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" /> sections.
+            </p>
+            <p>
+                Looking closely at these two parts we see that the
+                <HighlightedInfoHandler highlightedText="@atPage"
+                                        helpBoxText="@atPageMore"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" /> and
+                <HighlightedInfoHandler highlightedText="@atCode"
+                                        helpBoxText="@atCodeMore"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" /> directives denote the area of the
+                page that is html or C#.
+            </p>
+            <p>Both of these sections are contained within a single ".razor" file. All Blazor html pages have a .razor file type.</p>
+            <p>
+                Second, look at the paragraph element containing <HighlightedInfoHandler highlightedText="@atCount"
+                                                                                         helpBoxText="@atCountMore"
+                                                                                         infoType="infoVar"
+                                                                                         boxColor="@infoVarColor" />
+                This is how you reference variables declared within your C# code. Simply place an @at symbol before the the variable name.
+            </p>
+            <p>
+                Lastly, looking at the <HighlightedInfoHandler highlightedText="Click me"
+                                                               helpBoxText="@clickButtonCode"
+                                                               infoType="infoVar"
+                                                               boxColor="@infoVarColor" /> button in the demo,
+                note that an @at symbol is used for calling html's onclick functionality.
+                This syntax lets Blazor know that you are about to call a C# method in response
+                to the click. The Method name that you will call is placed within the following double
+                quotes without an @at delimiter.
+                In this case, you were calling the IncrementCount method to add 1 to the currentCount variable.
+            </p>
+
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Alternate Solutions section:-->
+        <div class="col-11 border border-warning rounded padded alt-section">
+            <h5><strong>Alternate Solutions</strong></h5>
+            <!--Info here:-->
+            <p>The subjects previously mentioned are universal.</p>
+            <p>Free pro-tip, Visual Studio can have a habbit of altering the tab spacing of your 
+            code as you type and cause weird spacing in some cases. Press "ctrl + k + d" to fix it!</p>
+        </div>
+        <div class="col-1"></div>
+        <!--End of content sections-->
+    </div>
+</div>
+@code{
+
+    //set
+    public string infoVarColor = "#00ffff!important;";
+    public string infoSynColor = "#b5c9e2!important;";
+    public string infoGenColor = "#fcf8e3!important;";
+
+    //Program startup and maintenance
+    protected override void OnInitialized()
+    {
+        HelpBoxInfo.helpBoxText = "";
+        HelpBoxInfo.mouseContext = "";
+        HelpBoxInfo.toggle = false;
+        HelpBoxInfo.boxColor = "";
+        HelpBoxInfo.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        HelpBoxInfo.OnChange -= StateHasChanged;
+    }
+
+    public string at = "@";
+    public string clickButtonCode = "...\n<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">Click me</button>\n...";
+    public string atCount = "@currentCount.";
+    public string atCountMore = "...\n<p>Current count: @currentCount</p>\n...";
+    public string atPage = "@page";
+    public string atPageMore = "@page \"/Counter\"\n\n"
+        + "/Counter is the reference name of the file. The file name is Counter.razor\n\n"
+        + "In a button, you would type href=\"Counter\" and the Counter.razor page is where you would end up. This is the same as typeing Counter at the end of the URL\n\n"
+        + "Keeping the @page reference name and the actual filename the same make it easier to keep track of your files. Later you will see how you can use the filename to reference the page as a component.";
+    public string atCode = "@code";
+    public string atCodeMore = "@code {...}\n\n"
+        + "Within the curly braces is where you will code in your C# methods and Variables that will be used within the preceding html code.";
+    public string counterCode = "@page \"/Counter\"\n"
+    + "\n"
+    + "<h1>Counter</h1>\n"
+    + "\n"
+    + "<p>Current count: @currentCount</p>"
+    + "\n"
+    + "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">Click me</button>\n"
+    + "\n"
+    + "@code {\n"
+    + "    private int currentCount = 0;\n"
+    + "\n"
+    + "    private void IncrementCount()\n"
+    + "    {\n"
+    + "        currentCount++;\n"
+    + "    }\n"
+    + "}";
+    public string htmlpage = "@page \"/counter\"\n"
+    + "\n"
+    + "<h1>Counter</h1>\n"
+    + "\n"
+    + "<p>Current count: @currentCount</p>"
+    + "\n"
+    + "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">Click me</button>\n"
+    + "</div>\n";
+    public string csharpcode = "@code {\n"
+    + "    private int currentCount = 0;\n"
+    + "\n"
+    + "    private void IncrementCount()\n"
+    + "    {\n"
+    + "        currentCount++;\n"
+    + "    }\n"
+    + "}";
+}

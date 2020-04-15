@@ -1,0 +1,258 @@
+﻿@page "/Components_Intro"
+@using BlazorTutorial_1.Components
+@using BlazorTutorial_1.Classes
+@inject HelpBoxInfo HelpBoxInfo
+@implements IDisposable
+<div class="set-padding">
+    <!--Title-->
+    <h1 class="page-title"><strong>Blazor Components!!!</strong></h1>
+    <!--Header-->
+    <h4 style="padding-bottom: 15px;">Blazor's bread and butter</h4>
+
+
+
+    <!--Text box positioning-->
+    <div class="position-sticky form-position">
+
+        <textarea readonly class="form-control codeAssistant primary-textarea"
+                  id="exampleFormControlTextarea3">@currentCode</textarea>
+        <br />
+        <InfoTextHandler setRefText="@HelpBoxInfo.helpBoxText"
+                         boxColor="@HelpBoxInfo.boxColor" />
+    </div>
+
+
+
+    <!--Left half of screen-->
+    <div class="row">
+        <!--The What section:-->
+        <div class="col-11 border border-primary rounded padded what-section">
+            <h5><strong>WHAT</strong></h5>
+            <!--Info here:-->
+            <p>Components are the most useful, yet confusing, aspect of Blazor.</p>
+            <p>
+                Simply put, components are blocks of html/C# Blazor code that we would like to use more than
+                once and are encapsulated within their own .razor file.
+            </p>
+            <p>
+                Components can be seperated into 3 main categories:
+                <HighlightedInfoHandler highlightedText="Standalone components"
+                                        helpBoxText="This type of component does not require anything to function and can be called in an href or as a component."
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+                ,
+                <HighlightedInfoHandler highlightedText="Parent components"
+                                        helpBoxText="This type of component can be called with an href but uses a child component in some way."
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+                , and
+                <HighlightedInfoHandler highlightedText="Child components"
+                                        helpBoxText="This type of component can only be instantiated by a parent component due to its required perameters. Can be thought of as an html method or function required by the parent component"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+                .
+            </p>
+            <p>
+                Child components are .razor files that specifically
+                <HighlightedInfoHandler highlightedText="depend"
+                                        helpBoxText="Dependancy includes variables/data in the parent component that the child component needs in order to function"
+                                        infoType="infoGen"
+                                        boxColor="@infoGenColor" />
+                upon variables or data within a parent component to be instantiated.
+            </p>
+            <p>
+                Below is a button allowing you to toggle between the parent and child component code
+                of the following example. Building off of the looping that was shown in the previous section,
+                we have a add button and subtract button that are now adding/removing components.
+            </p>
+            <p>
+                Each
+                <HighlightedInfoHandler highlightedText="button"
+                                        helpBoxText="@incDecButtonsRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                respectively increments/decrements the
+                <HighlightedInfoHandler highlightedText="current count"
+                                        helpBoxText="@currentCountRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                which will tell the
+                <HighlightedInfoHandler highlightedText="for-loop"
+                                        helpBoxText="@forLoopRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                how many times the
+                <HighlightedInfoHandler highlightedText="child component"
+                                        helpBoxText="@childCompRef"
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+                must be called.
+            </p>
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Demo section:-->
+        <div class="col-11 border border-success rounded padded demo-section">
+            <h5><strong>DEMO</strong></h5>
+            <!--Info here:-->
+            <button class="btn btn-primary" @onclick="Toggle">Click Here</button> to toggle between Simple_Component.razor and Simple_Child_Component.razor code.
+            <br />
+            <br />
+            <Simple_Component />
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The How section:-->
+        <div class="col-11 border border-secondary rounded padded how-section">
+            <h5><strong>HOW</strong></h5>
+            <!--Info here:-->
+
+
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Alternate Solutions section:-->
+        <div class="col-11 border border-warning rounded padded alt-section">
+            <h5><strong>Alternate Solutions</strong></h5>
+            <!--Info here:-->
+
+
+        </div>
+        <div class="col-1"></div>
+        <!--End of content sections-->
+    </div>
+</div>
+@code{
+    //set
+    public string infoVarColor = "#00ffff!important;";
+    public string infoSynColor = "#b5c9e2!important;";
+    public string infoGenColor = "#fcf8e3!important;";
+
+    //example variable injection
+    private string at = "@";
+
+    //Program startup and maintenance
+    public void Toggle()
+    {
+        if (currentCode == parent)
+        {
+            currentCode = childComponent;
+        }
+        else
+        {
+            currentCode = parent;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        currentCode = parent;
+        HelpBoxInfo.helpBoxText = "";
+        HelpBoxInfo.mouseContext = "";
+        HelpBoxInfo.toggle = false;
+        HelpBoxInfo.boxColor = "";
+        HelpBoxInfo.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        HelpBoxInfo.OnChange -= StateHasChanged;
+    }
+
+    public string currentCode = "";
+    public string parent = "@page \"/Simple_Component\"\n" +
+    "\n" +
+    "<p>Display the component as many times as the current count</p>\n" +
+    "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">add 1</button>\n" +
+    "<button class=\"btn btn-secondary\" @onclick=\"DecrementCount\">remove 1</button>\n" +
+    "<p>Current count: @currentCount</p>\n" +
+    "\n" +
+    "@if (currentCount < 0)\n" +
+    "{\n" +
+    "    <p>You are in the negatives.</p>\n" +
+    "}\n" +
+    "else\n" +
+    "{\n" +
+    "    <ul>\n" +
+    "        @for (int x = 1; x <= currentCount; x++)\n" +
+    "        {\n" +
+    "            <div style=\"font-size: 80%\">\n" +
+    "                <Simple_Child_Component count = \"@currentCount\"\n" +
+    "                                        OnClick=\"ClickHandler\" />\n" +
+    "            </div>\n" +
+    "        }\n" +
+    "    </ul>\n" +
+    "    <p>Show EventCallback value of the child-component's currentCount: @returnedValue</p>\n" +
+    "}\n" +
+    "\n" +
+    "@code {\n" +
+    "    private int currentCount = 0;\n" +
+    "    private int returnedValue = -1;\n" +
+    "\n" +
+    "private void ClickHandler(string childReturnedValue)\n" +
+    "{\n" +
+    "    returnedValue = Int32.Parse(childReturnedValue);\n" +
+    "}\n" +
+    "    private void IncrementCount()\n" +
+    "    {\n" +
+    "        currentCount++;\n" +
+    "    }\n" +
+    "    private void DecrementCount()\n" +
+    "    {\n" +
+    "        currentCount--;\n" +
+    "    }\n" +
+    "}";
+    public string childComponent = "<h4>I am a child component</h4>\n" +
+    "\n" +
+    "<p>Current count: @currentCount</p>\n" +
+    "\n" +
+    "<button class=\"btn btn-primary\" @onclick=\"@(() => OnClick.InvokeAsync(currentCount.ToString()))\">Click me</button>\n" +
+    "\n" +
+    "@code {\n" +
+    "    [Parameter]\n" +
+    "    public int count { get; set; }\n" +
+    "    [Parameter]\n" +
+    "    public EventCallback<string> OnClick { get; set; }\n" +
+    "\n" +
+    "    private int currentCount = 0;\n" +
+    "\n" +
+    "    private void IncrementCount()\n" +
+    "    {\n" +
+    "        currentCount++;\n" +
+    "    }\n" +
+    "\n" +
+    "    protected override void OnInitialized()\n" +
+    "    {\n" +
+    "        currentCount = count;\n" +
+    "    }\n" +
+    "}";
+    private string childCompRef = "<Simple_Child_Component count=\"@currentCount\"\n" +
+                                  "                        OnClick=\"ClickHandler\" />";
+    private string forLoopRef = "<ul>\n" +
+    "    @for (int x = 1; x <= currentCount; x++)\n" +
+    "    {\n" +
+    "        <div style=\"font-size: 80%\">\n" +
+    "            <Simple_Child_Component count = \"@currentCount\"\n" +
+    "                                    OnClick=\"ClickHandler\" />\n" +
+    "        </div>\n" +
+    "    }\n" +
+    "</ul>";
+    private string incDecButtonsRef = "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">add 1</button>\n" +
+    "<button class=\"btn btn-secondary\" @onclick=\"DecrementCount\">remove 1</button>";
+    private string currentCountRef = "<p>Current count: @currentCount</p>\n";
+}

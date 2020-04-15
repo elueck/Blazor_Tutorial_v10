@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+@using BlazorTutorial_1.Classes
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    <div class="top-row px-4" style="z-index: 10; background-color: #05163c;">
+        <div style="color: #c76e00;width: 100%;">Made entirely with Blazor.</div>
+        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About asp.net</a>
+    </div>
+
+    <div class="">
+        @Body
+    </div>
+</div>
+
+@code{
+}
+<!--background-color: #3a0647-->

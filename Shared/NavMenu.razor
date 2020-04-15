@@ -1,0 +1,52 @@
+﻿<div class="top-row pl-3 navbar navbar-dark">
+    <a class="navbar-brand" href="">Blazor Tutorial</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Blazor_Intro">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Layout Help
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Blazor_Variables">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Blazor Variables
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="If_Else_Intro">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> If Else Statements
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Html_Looping">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Looping in html
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Components_Intro">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Components
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

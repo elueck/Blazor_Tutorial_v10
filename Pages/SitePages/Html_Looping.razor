@@ -1,0 +1,186 @@
+﻿@page "/Html_Looping"
+@using BlazorTutorial_1.Components
+@using BlazorTutorial_1.Classes
+@inject HelpBoxInfo HelpBoxInfo
+@implements IDisposable
+<div class="set-padding">
+    <!--Title-->
+    <h1 class="page-title"><strong>HTML Looping</strong></h1>
+    <!--Header-->
+    <h4 style="padding-bottom: 15px;">Why type more, when you could type less</h4>
+
+
+
+    <!--Text box positioning-->
+    <div class="position-sticky form-position">
+
+        <textarea readonly class="form-control codeAssistant primary-textarea"
+                  id="exampleFormControlTextarea3">@loopCode</textarea>
+        <br />
+        <InfoTextHandler setRefText="@HelpBoxInfo.helpBoxText"
+                         boxColor="@HelpBoxInfo.boxColor" />
+    </div>
+
+
+
+    <!--Left half of screen-->
+    <div class="row">
+        <!--The What section:-->
+        <div class="col-11 border border-primary rounded padded what-section">
+            <h5><strong>WHAT</strong></h5>
+            <!--Info here:-->
+            <p>
+                Below we have <HighlightedInfoHandler highlightedText="two buttons"
+                                                      helpBoxText="@twoButtons"
+                                                      infoType="infoVar"
+                                                      boxColor="@infoVarColor" /> allowing the alteration of the currentCount variable by single increments.
+            </p>
+            <p>
+                When the add button is pressed, the list will expand based upon the value of
+                currentCount due to the <HighlightedInfoHandler highlightedText="for loop."
+                                                                helpBoxText="@forLoop"
+                                                                infoType="infoVar"
+                                                                boxColor="@infoVarColor" />
+            </p>
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Demo section:-->
+        <div class="col-11 border border-success rounded padded demo-section">
+            <h5><strong>DEMO</strong></h5>
+            <!--Info here:-->
+            <Loop />
+
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The How section:-->
+        <div class="col-11 border border-secondary rounded padded how-section">
+            <h5><strong>HOW</strong></h5>
+            <!--Info here:-->
+            <p>The only syntax required for inserting a for loop is an @at symbol preceeding the word for.</p>
+            <p>
+                It should be noted that the for loop is located between the Unordered List declaration and
+                closing tags. This is because I only wanted the loop to create duplicate List-Items within the
+                Unordered-List.
+            </p>
+            <p>
+                You can also use C# <HighlightedInfoHandler highlightedText="for-each loops"
+                                                            helpBoxText="@foreachloop"
+                                                            infoType="infoSyn"
+                                                            boxColor="@infoSynColor" />
+                with objects or arrays in a similar fashion. Simply preceed the for-each loop with an @at symbol and you're good to go!
+            </p>
+            <p>
+                In conclusion, you are essentially creating and destroying html dynamically within the html source code.
+                This makes referencing said code extremely easy and concise. Page re-rendering is done immediately
+                upon the variable changes and encapsulated to only the html that is being added or removed.
+                This localized re-rendering means makes page updates are extremely fast. This functionality is
+                again due to the SignalR server/client realtime communication that is built into Blazor.
+            </p>
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Alternate Solutions section:-->
+        <div class="col-11 border border-warning rounded padded alt-section">
+            <h5><strong>Alternate Solutions</strong></h5>
+            <!--Info here:-->
+            <p><a href="https://www.geeksforgeeks.org/c-sharp-foreach-loop/" target="_blank">Here is a great C# for-each loop tutorial</a></p>
+            <p><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/foreach-in" target="_blank">Here is Microsoft's for-each loop C# documentation</a></p>
+            <p><a href="https://www.webassemblyman.com/blazor/blazorforloop.html" target="_blank">Here is another source on Blazor Looping</a></p>
+            <p><a href="https://www.w3schools.com/js/tryit.asp?filename=tryjs_loop_for_ex" target="_blank">Here is the javascript version of a similar looping process</a></p>
+        </div>
+        <div class="col-1"></div>
+        <!--End of content sections-->
+    </div>
+</div>
+@code{
+
+    //set
+    public string infoVarColor = "#00ffff!important;";
+    public string infoSynColor = "#b5c9e2!important;";
+    public string infoGenColor = "#fcf8e3!important;";
+
+    //example variable injection
+    private string at = "@";
+
+    //Program startup and maintenance
+    protected override void OnInitialized()
+    {
+        HelpBoxInfo.helpBoxText = "";
+        HelpBoxInfo.mouseContext = "";
+        HelpBoxInfo.toggle = false;
+        HelpBoxInfo.boxColor = "";
+        HelpBoxInfo.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        HelpBoxInfo.OnChange -= StateHasChanged;
+    }
+
+    private string loopCode = "@page \"/Loop\"\n" +
+    "\n" +
+    "<p>Say Hello as many times as the current count</p>\n" +
+    "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">add 1</button>\n" +
+    "<button class=\"btn btn-secondary\" @onclick=\"DecrementCount\">remove 1</button>\n" +
+    "<p>Current count: @currentCount</p>\n" +
+    "\n" +
+    "@if (currentCount < 0)\n" +
+    "{\n" +
+    "    <p>You are in the negatives.</p>\n" +
+    "}\n" +
+    "else\n" +
+    "{\n" +
+    "    <ul>\n" +
+    "        @for (int x = 1; x <= currentCount; x++)\n" +
+    "        {\n" +
+    "            <li>\n" +
+    "                Hello @x\n" +
+    "            </li>\n" +
+    "        }\n" +
+    "    </ul>\n" +
+    "}\n" +
+    "\n" +
+    "@code {\n" +
+    "    private int currentCount = 0;\n" +
+    "\n" +
+    "    private void IncrementCount()\n" +
+    "    {\n" +
+    "        currentCount++;\n" +
+    "    }\n" +
+    "    private void DecrementCount()\n" +
+    "    {\n" +
+    "        currentCount--;\n" +
+    "    }\n" +
+    "}";
+    private string twoButtons = "<button class=\"btn btn-primary\" @onclick=\"IncrementCount\">add 1</button>\n" +
+    "<button class=\"btn btn-secondary\" @onclick=\"DecrementCount\">remove 1</button>\n";
+    private string forLoop = "<ul>\n" +
+    "@for(int x = 1; x <= currentCount; x++)\n" +
+    "{\n" +
+    "    <li>\n" +
+    "        Hello @x\n" +
+    "    </li>\n" +
+    "}\n" +
+    "</ul>\n";
+    private string foreachloop = "foreach(data_type var_name in collection_variable)\n" +
+    "{\n" +
+    "    // statements to be executed\n" +
+    "}";
+}

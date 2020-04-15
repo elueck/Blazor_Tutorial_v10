@@ -1,0 +1,33 @@
+﻿@page "/If_Else"
+
+<p>Is the current count 5 or higher?</p>
+<p>Current count: @currentCount</p>
+
+@if (currentCount >= 5)
+{
+    <p>Yes!!!</p>
+}
+else if (currentCount < 0)
+{
+    <p>Woa, you're in the negatives!</p>
+}
+else
+{
+    <p>Nope...</p>
+}
+
+<button class="btn btn-primary" @onclick="IncrementCount">add 1</button>
+<button class="btn btn-secondary" @onclick="DecrementCount">remove 1</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+    private void DecrementCount()
+    {
+        currentCount--;
+    }
+}

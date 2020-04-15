@@ -1,0 +1,21 @@
+﻿@using BlazorTutorial_1.Classes
+@inject HelpBoxInfo HelpBoxInfo
+@implements IDisposable
+
+<textarea readonly style="background-color: @boxColor" class="form-control codeAssistant infoTextArea" id="exampleFormControlTextarea3">@setRefText</textarea>
+@code {
+    [Parameter]
+    public string setRefText { get; set; }
+    [Parameter]
+    public string boxColor { get; set; }
+
+    protected override void OnInitialized()
+    {
+        HelpBoxInfo.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        HelpBoxInfo.OnChange -= StateHasChanged;
+    }
+}

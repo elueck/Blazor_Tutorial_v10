@@ -1,0 +1,44 @@
+﻿@page "/Simple_Component"
+
+<p>Display the component as many times as the current count</p>
+<button class="btn btn-primary" @onclick="IncrementCount">add 1</button>
+<button class="btn btn-secondary" @onclick="DecrementCount">remove 1</button>
+<p>Current count: @currentCount</p>
+
+@if (currentCount < 0)
+{
+    <p>You are in the negatives.</p>
+}
+else
+{
+    <ul>
+        @for (int x = 1; x <= currentCount; x++)
+        {
+            <li>
+                <div style="font-size: 80%">
+                    <Simple_Child_Component count="@currentCount"
+                                            OnClick="ClickHandler" />
+                </div>
+            </li>
+        }
+    </ul>
+    <p>Show EventCallback value of the child-component's currentCount: @returnedValue</p>
+}
+
+@code {
+    private int currentCount = 0;
+    private int returnedValue = -1;
+
+    private void ClickHandler(string childReturnedValue)
+    {
+        returnedValue = Int32.Parse(childReturnedValue);
+    }
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+    private void DecrementCount()
+    {
+        currentCount--;
+    }
+}

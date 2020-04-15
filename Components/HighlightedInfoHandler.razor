@@ -1,0 +1,59 @@
+﻿@using BlazorTutorial_1.Classes
+@inject HelpBoxInfo HelpBoxInfo
+
+<mark @onmouseover="InfoHovering" @onmouseout="InfoLeave" @onclick="InfoClick" class="@infoType">@highlightedText</mark>
+
+@code {
+    [Parameter]
+    public string highlightedText { get; set; }
+    [Parameter]
+    public string helpBoxText { get; set; }
+    [Parameter]
+    public string infoType { get; set; }
+    [Parameter]
+    public string boxColor { get; set; }
+
+    private string tempColor { get; set; }
+    private string tempBoxText { get; set; }
+
+
+    private void InfoHovering()
+    {
+        if (HelpBoxInfo.toggle)
+        {
+            tempBoxText = HelpBoxInfo.helpBoxText;
+            tempColor = HelpBoxInfo.boxColor;
+            HelpBoxInfo.SetInfo("MousedOver", helpBoxText, true, boxColor);
+        }
+        else
+        {
+            HelpBoxInfo.SetInfo("MousedOver", helpBoxText, false, boxColor);
+        }
+    }
+    private void InfoLeave()
+    {
+        if (HelpBoxInfo.toggle)
+        {
+            HelpBoxInfo.SetInfo("MousedOff", tempBoxText, true, tempColor);
+        }
+        else
+        {
+            HelpBoxInfo.SetInfo("MousedOff", "", false, "#f5f8f9!important;");
+        }
+    }
+    private void InfoClick()
+    {
+        if (HelpBoxInfo.toggle && helpBoxText == tempBoxText)
+        {
+            tempBoxText = "";
+            tempColor = "#f5f8f9!important;";
+            HelpBoxInfo.SetInfo("MouseClick", "", false, "#f5f8f9!important;");
+        }
+        else
+        {
+            tempBoxText = helpBoxText;
+            tempColor = boxColor;
+            HelpBoxInfo.toggle = true;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+﻿@page "/"
+
+<div class="background-picture  ">
+    <div class="set-padding background-animation">
+        <div style="text-align: center;">
+            <h3 style="font-family: 'Press Start 2P'; background: -webkit-linear-gradient(#230323, #000000, #230323); text-shadow: 1px 1px 2px #ad12f3; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hello and welcome to this</h3>
+            <br />
+            <br />
+            <h1 class="blazorTitle">Blazor Tutorial</h1>
+        </div>
+        <br />
+        <br />
+        <div class="row" style="border-radius: 1em;">
+            <div class="gradient row col-12">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <div class="inset-message">
+                        <br />
+                        <h4>
+                            Here you can learn the basics of Blazor web-assembly for creating server-side interactive websites for your browser
+                        </h4>
+                        <br />
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-4 alert-info gradient">
+                <div class="inset-message">
+                    <br />
+                    <h2>&nbsp;&nbsp;If you have Blazor experience and are ready to start</h2>
+                    <br />
+                </div>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4 alert-info gradient">
+                <div class="inset-message">
+                    <br />
+                    <h2>If you want to set up your own Blazor page and follow along</h2>
+                    <br />
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-6 center-next-child">
+                <NavLink href="Blazor_Intro">
+                    <button type="button" class="btn btn-rdy" style="padding-left: 25px; padding-right: 25px;"><h2>Ready</h2></button>
+                </NavLink>
+            </div>
+            <div class="col-6 center-next-child">
+                <NavLink href="https://docs.microsoft.com/en-us/aspnet/core/blazor/get-started?view=aspnetcore-3.1&tabs=visual-studio" target="_blank">
+                    <button type="button" class="btn btn-unrdy"><h2>&nbsp;&nbsp;&nbsp;&nbsp;Prepare&nbsp;&nbsp;&nbsp;&nbsp;</h2></button>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</div>
+@code{
+}

@@ -1,0 +1,35 @@
+﻿@page "/Loop"
+
+<p>Say Hello as many times as the current count</p>
+<button class="btn btn-primary" @onclick="IncrementCount">add 1</button>
+<button class="btn btn-secondary" @onclick="DecrementCount">remove 1</button>
+<p>Current count: @currentCount</p>
+
+@if (currentCount < 0)
+{
+    <p>You are in the negatives.</p>
+}
+else
+{
+    <ul>
+        @for (int x = 1; x <= currentCount; x++)
+        {
+            <li>
+                Hello @x
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+    private void DecrementCount()
+    {
+        currentCount--;
+    }
+}

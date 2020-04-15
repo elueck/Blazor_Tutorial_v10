@@ -1,0 +1,18 @@
+﻿@using BlazorTutorial_1.Classes
+
+@code {
+    [Parameter] public int Time { get; set; } = 5;
+
+    public async void StartTimerAsync()
+    {
+        while (Time > 0)
+        {
+            Time--;
+            StateHasChanged();
+            await Task.Delay(1000);
+        }
+    }
+
+    protected override void OnInitialized()
+        => StartTimerAsync();
+}

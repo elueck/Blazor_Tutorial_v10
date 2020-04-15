@@ -1,0 +1,126 @@
+﻿@page "/Blazor_Intro"
+@using BlazorTutorial_1.Components
+@using BlazorTutorial_1.Classes
+@using BlazorTutorial_1.Pages.SitePages
+@inject HelpBoxInfo HelpBoxInfo
+@implements IDisposable
+<div class="set-padding">
+    <!--Title-->
+    <h1 class="page-title"><strong>Blazor Tutorial Intro</strong></h1>
+    <!--Header-->
+    <h4 style="padding-bottom: 15px;">This page provides detail regarding the tutorial's layout of information.</h4>
+
+
+
+    <!--Text box positioning-->
+    <div class="position-sticky form-position">
+
+        <textarea readonly class="form-control codeAssistant primary-textarea"
+                  id="exampleFormControlTextarea3">This is the Code area! This is where the Demo's code will reside.</textarea>
+        <br />
+        <InfoTextHandler setRefText="@HelpBoxInfo.helpBoxText"
+                         boxColor="@HelpBoxInfo.boxColor" />
+    </div>
+
+
+
+    <!--Left half of screen-->
+    <div class="row">
+        <!--The What section:-->
+        <div class="col-11 border border-primary rounded padded what-section">
+            <h5><strong>WHAT</strong></h5>
+            <!--Info here:-->
+            <p>All of the following pages within this tutorial will be broken up into six sections.</p>
+            <p>This section is the WHAT section. Here you will find an explanation of what is being shown in the DEMO section. (located directly below this section)</p>
+            <p>The right half of the screen contains the Code and Help sections. The Code section will provide syntax corresponding to what topic is being discussed. (Located on the upper right of the screen)</p>
+            <p>
+                The Help section is located below the Code section and provides dynamic information corresponding to <HighlightedInfoHandler highlightedText="highlighted text"
+                                                                                                                                             helpBoxText="You can toggle this by clicking the highlighted text that you are currently hovering over."
+                                                                                                                                             infoType="infoGen"
+                                                                                                                                             boxColor="@infoGenColor" />
+            </p>
+            <p>
+                Note the color scheme of the help section is broken up into 3 parts: <br /><HighlightedInfoHandler highlightedText="General Information"
+                                                                                                             helpBoxText="General information will include tips or suggestions regarding the highlighted topic"
+                                                                                                             infoType="infoGen"
+                                                                                                             boxColor="@infoGenColor" />, 
+                <HighlightedInfoHandler highlightedText="Syntax Tips"
+                                        helpBoxText="Syntax tips will provide syntactical information about varius necessities of blazor/c# syntax requirements"
+                                        infoType="infoSyn"
+                                        boxColor="@infoSynColor" />, and
+                <HighlightedInfoHandler highlightedText="Code Refereces"
+                                        helpBoxText="These highlights will provide a reference to the exact code being mentioned."
+                                        infoType="infoVar"
+                                        boxColor="@infoVarColor" />
+            </p>
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Demo section:-->
+        <div class="col-11 border border-success rounded padded demo-section">
+            <h5><strong>DEMO</strong></h5>
+            <!--Info here:-->
+            <p>Currently there is no demo to show.</p>
+
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The How section:-->
+        <div class="col-11 border border-secondary rounded padded how-section">
+            <h5><strong>HOW</strong></h5>
+            <!--Info here:-->
+            <p>This section will give a more syntactic look at the c#/html provided in the Code section.</p>
+
+        </div>
+        <div class="col-1"></div>
+
+
+
+
+
+
+        <!--The Alternate Solutions section:-->
+        <div class="col-11 border border-warning rounded padded alt-section">
+            <h5><strong>Alternate Solutions</strong></h5>
+            <!--Info here:-->
+            <p>This is the last section and will provide references to other articles related to the topic at hand.</p>
+            <p>These articles will contain various implementations of similar examples regarding the subject matter.</p>
+
+        </div>
+        <div class="col-1"></div>
+        <!--End of content sections-->
+    </div>
+</div>
+@code{
+
+    //Color declaration for the highlighter
+    public string infoVarColor = "#00ffff!important;";
+    public string infoSynColor = "#b5c9e2!important;";
+    public string infoGenColor = "#fcf8e3!important;";
+
+
+    //Program startup and maintenance
+    protected override void OnInitialized()
+    {
+        HelpBoxInfo.helpBoxText = "";
+        HelpBoxInfo.mouseContext = "";
+        HelpBoxInfo.toggle = false;
+        HelpBoxInfo.boxColor = "";
+        HelpBoxInfo.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        HelpBoxInfo.OnChange -= StateHasChanged;
+    }
+}
